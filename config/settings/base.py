@@ -70,6 +70,11 @@ SHARED_APPS = [
     'tenant_schemas',  # mandatory, should always be before any django app
     'brokers', # you must list the app where your tenant model resides in
 
+    # "alitaweb.users.apps.UsersConfig",
+    "alitaweb.users",
+
+
+
     'django.contrib.contenttypes',
 
     # everything below here is optional
@@ -77,13 +82,31 @@ SHARED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    "django.contrib.staticfiles",
     'django.contrib.admin',
 ]
 
 
-TENANT_APPS = ['django.contrib.contenttypes']
+TENANT_APPS = [
+    "alitaweb.users",
+    'django.contrib.contenttypes',
+
+    # everything below here is optional
+    'django.contrib.auth',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    "django.contrib.staticfiles",
+    'django.contrib.admin',
+
+    "dbmail",
+    ]
 
 DJANGO_APPS = [
+    "tenant_schemas",
+    # "alitaweb.users.apps.UsersConfig",
+    "brokers",
+
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -101,10 +124,12 @@ THIRD_PARTY_APPS = [
     "rest_framework",
 ]
 LOCAL_APPS = [
-    "alitaweb.users.apps.UsersConfig",
     # Your stuff: custom apps go here
-    "brokers"
+    # "brokers"
+    "alitaweb.users",
+    "dbmail",
 ]
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -115,6 +140,7 @@ DATABASE_ROUTERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
+# Added (Tenant model)
 TENANT_MODEL = "brokers.Client" # app.Model
 
 DEFAULT_FILE_STORAGE = 'tenant_schemas.storage.TenantFileSystemStorage'
@@ -303,4 +329,22 @@ SOCIALACCOUNT_ADAPTER = "alitaweb.users.adapters.SocialAccountAdapter"
 
 
 # Your stuff...
+CACHES = {
+    # Memcached
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+    }
+    # ,
+    # # or Redis
+    # "default": {
+    #     'BACKEND': 'redis_cache.cache.RedisCache',
+    #     'LOCATION': '127.0.0.1:6379:2',
+    # },
+    # # or Memory
+    # "default": {
+    #     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    #     'LOCATION': 'unique-snowflake'
+    # },
+}
+
 # ------------------------------------------------------------------------------
