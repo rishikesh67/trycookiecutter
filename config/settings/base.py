@@ -42,9 +42,19 @@ LOCALE_PATHS = [ROOT_DIR.path("locale")]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+# Added
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgres:///alita")
+    'default': {
+        # 'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'tenant_schemas.postgresql_backend',
+        'NAME': 'alita',
+        'USER': 'hygull',
+        'PASSWORD': 'hygull@123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
+
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # URLS
@@ -56,6 +66,23 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
+SHARED_APPS = [
+    'tenant_schemas',  # mandatory, should always be before any django app
+    'brokers', # you must list the app where your tenant model resides in
+
+    'django.contrib.contenttypes',
+
+    # everything below here is optional
+    'django.contrib.auth',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.admin',
+]
+
+
+TENANT_APPS = ['django.contrib.contenttypes']
+
 DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -76,10 +103,21 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "alitaweb.users.apps.UsersConfig",
     # Your stuff: custom apps go here
+    "brokers"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+# Added
+DATABASE_ROUTERS = (
+    'tenant_schemas.routers.TenantSyncRouter',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+)
+TENANT_MODEL = "brokers.Client" # app.Model
+
+DEFAULT_FILE_STORAGE = 'tenant_schemas.storage.TenantFileSystemStorage'
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
@@ -123,6 +161,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
+    # Added
+    "tenant_schemas.middleware.TenantMiddleware",
+
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
