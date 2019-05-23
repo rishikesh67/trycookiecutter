@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=alitaweb
+POSTGRES_USER=OvxCBvEcHvujpgEOQcnTCTImxqDbnlSL
+POSTGRES_PASSWORD=AuhOx3sYZmEuhoSDwXJwkW3pS20a5uKHXqvkJw8f9ModDxOY8ulRLjJpBqo2e9qb
