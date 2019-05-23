@@ -12,7 +12,7 @@ DEBUG = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
-    default="1Q9zX79bE5IsZ7zmiuD8R00GO9zAweRpBF0rcdqEskPKbaM4itFfaAgxI42BJwXz",
+    default="jo7ZyPrTMuggrcQbL0t5u9mivrWxKb7htEyep0ka9AajTrESzTu7KlO7eK4sPv37",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
 TEST_RUNNER = "django.test.runner.DiscoverRunner"

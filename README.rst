@@ -1,7 +1,7 @@
 alita
 =====
 
-Multitenancy based Django project
+Miultitenancy based project
 
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
      :target: https://github.com/pydanny/cookiecutter-django/
@@ -77,29 +77,5 @@ Deployment
 The following details how to deploy this application.
 
 
-
-Docker
-^^^^^^
-
-See detailed `cookiecutter-django Docker documentation`_.
-
-.. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
-
-
-
-Custom Bootstrap Compilation
-^^^^^^
-
-The generated CSS is set up with automatic Bootstrap recompilation with variables of your choice.
-Bootstrap v4 is installed using npm and customised by tweaking your variables in ``static/sass/custom_bootstrap_vars``.
-
-You can find a list of available variables `in the bootstrap source`_, or get explanations on them in the `Bootstrap docs`_.
-
-
-Bootstrap's javascript as well as its dependencies is concatenated into a single file: ``static/js/vendors.js``.
-
-
-.. _in the bootstrap source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
-.. _Bootstrap docs: https://getbootstrap.com/docs/4.1/getting-started/theming/
 
 
